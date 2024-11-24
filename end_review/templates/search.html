@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}검색하기{% endblock %}
+
+{% block content %}
+<!--<header>-->
+<!--  <h1>맛집 추천 서비스</h1>-->
+<!--</header>-->
+<div class="container">
+  <div class="search-container">
+    <h1>원하는 맛집을 찾아보세요!</h1>
+    <form method="get" action="{% url 'search' %}">
+      <input type="text" name="query" placeholder="키워드를 입력하세요. 예: 파스타, 한식, 강남역" value="{{ request.GET.query }}">
+      <button type="submit">검색</button>
+    </form>
+  </div>
+
+  <!-- 검색 결과 출력 -->
+  {% if result %}
+  <div class="result-container">
+    <h2>검색 결과:</h2>
+    <ul>
+      {% for ele in result %}
+        <li>
+          <strong>{{ ele.place_name }}</strong><br>
+          {{ ele.address_name }}<br>
+          <small>카테고리: {{ ele.category_name }}</small><br>
+          {% if ele.phone %}
+            전화번호: {{ ele.phone }}<br>
+          {% endif %}
+          <a href="{{ ele.place_url }}" target="_blank">상세 보기</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% elif not result and query %}
+  <div class="result-container">
+    <p>검색 결과가 없습니다. 다른 키워드를 입력해보세요. </p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
