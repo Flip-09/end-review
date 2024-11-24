@@ -22,11 +22,11 @@
     <ul>
       {% for ele in result %}
         <li>
-          <strong>{{ ele.place_name }}</strong><br>
+          <strong>{{ ele.place_name }}</strong> <{{ ele.rating }}><br>
           {{ ele.address_name }}<br>
           <small>카테고리: {{ ele.category_name }}</small><br>
           {% if ele.phone %}
-            전화번호: {{ ele.phone }}<br>
+            <small>전화번호: {{ ele.phone }}</small><br>
           {% endif %}
           <a href="{{ ele.place_url }}" target="_blank">상세 보기</a>
         </li>
